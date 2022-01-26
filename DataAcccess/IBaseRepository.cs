@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAcccess
 {
+    //deneme
     public interface IBaseRepository<T> where T :class,IEntity,new()
     {
         Task<IEnumerable<T>> GetListAsync();
