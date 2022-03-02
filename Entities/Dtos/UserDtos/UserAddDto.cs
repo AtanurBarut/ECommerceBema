@@ -16,6 +16,6 @@ namespace Entities.Dtos.UserDtos
         public bool Gender { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Email { get; set; }
-        public string Adres { get; set; }
+        public string Adress { get; set; }
     }
 }

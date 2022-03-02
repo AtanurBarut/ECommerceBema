@@ -33,15 +33,11 @@ namespace DataAcccess.Concrete.EntityFremawork.Mapping
 
             builder.Property(x => x.Password)
             .HasColumnName("Password")
-            .HasMaxLength(50)
+            .HasMaxLength(20)
             .IsRequired();
 
             builder.Property(x => x.Gender)
             .HasColumnName("Gender")
-            .IsRequired();
-
-            builder.Property(x => x.DateOfBirth)
-            .HasColumnName("DateOfBirth")
             .IsRequired();
 
             builder.Property(x => x.DateOfBirth)
