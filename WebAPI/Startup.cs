@@ -1,3 +1,5 @@
+using Business.Abstract;
+using Business.Concrete;
 using DataAcccess.Abstract;
 using DataAcccess.Concrete.Contexts;
 using DataAcccess.Concrete.EntityFremawork;
@@ -36,6 +38,8 @@ namespace WebAPI
 
             services.AddControllers();
             services.AddTransient<IuserDal,EfUserDal>();
+            services.AddTransient<IUserService,UserService>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
