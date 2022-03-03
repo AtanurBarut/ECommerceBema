@@ -1,6 +1,11 @@
+using DataAcccess.Abstract;
+using DataAcccess.Concrete.Contexts;
+using DataAcccess.Concrete.EntityFremawork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,8 +30,12 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ECommerceBemaContext>(opts => opts.UseSqlServer("Data Source=.; Initial Catalog = ECommerceBemaDB; User Id=sa; Password=sapass"
+                , options => options.MigrationsAssembly("DataAccess").MigrationsHistoryTable
+            (HistoryRepository.DefaultTableName, "dbo")));
 
             services.AddControllers();
+            services.AddTransient<IuserDal,EfUserDal>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
