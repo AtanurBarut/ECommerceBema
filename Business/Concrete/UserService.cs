@@ -30,7 +30,7 @@ namespace Business.Concrete
                 CreatedUserId = 1,
                 DateOfBirth = userAddDto.DateOfBirth,
                 Email = userAddDto.Email,
-                FirstName = userAddDto.FirsName,
+                FirstName = userAddDto.FirstName,
                 Gender = userAddDto.Gender,
                 Password = userAddDto.Password,
                 UserName = userAddDto.UserName
@@ -61,17 +61,21 @@ namespace Business.Concrete
         public async Task<UserDto> GetByIdAsync(int id)
         {
             var user = await _userDal.GetAsync(x => x.Id == id);
-            UserDto userDto = new UserDto()
+            if (user != null)
             {
-                Adress = user.Adress,
-                DateOfBirth = user.DateOfBirth,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                Gender = user.Gender,
-                LastName = user.LastName,
-                UserName = user.UserName
-            };
-            return userDto;
+                UserDto userDto = new UserDto()
+                {
+                    Adress = user.Adress,
+                    DateOfBirth = user.DateOfBirth,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    Gender = user.Gender,
+                    LastName = user.LastName,
+                    UserName = user.UserName
+                };
+                return userDto;
+            }
+            return null;
         }
 
         public async Task<IEnumerable<UserDetailDto>> GetListAsync()
@@ -82,7 +86,7 @@ namespace Business.Concrete
             {
                 userDetailDtos.Add(new UserDetailDto()
                 {
-                    FirsName = item.FirstName,
+                    FirstName = item.FirstName,
                     LastName = item.LastName,
                     Gender = item.Gender == true ? "Erkek" : "Kadın",
                     DateOfBirth = item.DateOfBirth,
