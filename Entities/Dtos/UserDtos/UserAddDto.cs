@@ -11,10 +11,14 @@ namespace Entities.Dtos.UserDtos
     {
         public string UserName { get; set; }
 <<<<<<< HEAD
+<<<<<<< HEAD
         public string FirstName { get; set; }
         public string Lastname { get; set; }
 =======
         public string FirsName { get; set; }
+=======
+        public string FirstName { get; set; }
+>>>>>>> ebccce6d942a2ad4b8e0fbb9104a1d7c4fe0d15a
         public string LastName { get; set; }
 >>>>>>> 07c7e0a1e22a921d75ac56d3d845e956b326b7d1
         public string Password { get; set; }

@@ -16,10 +16,14 @@ namespace Entities.Dtos.UserDtos
 =======
         public int Id { get; set; }
         public string UserName { get; set; }
-        public string FirsName { get; set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
+<<<<<<< HEAD
 >>>>>>> 07c7e0a1e22a921d75ac56d3d845e956b326b7d1
         public string Password { get; set; }
+=======
+        //public string Password { get; set; }
+>>>>>>> ebccce6d942a2ad4b8e0fbb9104a1d7c4fe0d15a
         public string Gender { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Email { get; set; }
