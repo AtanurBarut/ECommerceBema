@@ -32,10 +32,10 @@ namespace WebAPIWindowsForm
             this.label1 = new System.Windows.Forms.Label();
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnEkle = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.dateDateOfBirth = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtFirtsName = new System.Windows.Forms.TextBox();
+            this.txtFirstName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtLastName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -47,8 +47,8 @@ namespace WebAPIWindowsForm
             this.label7 = new System.Windows.Forms.Label();
             this.cmbGender = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.btnDuzenle = new System.Windows.Forms.Button();
-            this.btnSil = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,21 +71,24 @@ namespace WebAPIWindowsForm
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 199);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 152);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 29;
-            this.dataGridView1.Size = new System.Drawing.Size(736, 306);
-            this.dataGridView1.TabIndex = 2;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(1115, 353);
+            this.dataGridView1.TabIndex = 12;
+            this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             // 
-            // btnEkle
+            // btnAdd
             // 
-            this.btnEkle.Location = new System.Drawing.Point(454, 164);
-            this.btnEkle.Name = "btnEkle";
-            this.btnEkle.Size = new System.Drawing.Size(94, 29);
-            this.btnEkle.TabIndex = 3;
-            this.btnEkle.Text = "Ekle";
-            this.btnEkle.UseVisualStyleBackColor = true;
+            this.btnAdd.Location = new System.Drawing.Point(803, 19);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(94, 29);
+            this.btnAdd.TabIndex = 9;
+            this.btnAdd.Text = "Ekle";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // dateDateOfBirth
             // 
@@ -103,12 +106,12 @@ namespace WebAPIWindowsForm
             this.label2.TabIndex = 0;
             this.label2.Text = "Adı :";
             // 
-            // txtFirtsName
+            // txtFirstName
             // 
-            this.txtFirtsName.Location = new System.Drawing.Point(121, 53);
-            this.txtFirtsName.Name = "txtFirtsName";
-            this.txtFirtsName.Size = new System.Drawing.Size(245, 27);
-            this.txtFirtsName.TabIndex = 1;
+            this.txtFirstName.Location = new System.Drawing.Point(121, 53);
+            this.txtFirstName.Name = "txtFirstName";
+            this.txtFirstName.Size = new System.Drawing.Size(245, 27);
+            this.txtFirstName.TabIndex = 2;
             // 
             // label3
             // 
@@ -124,7 +127,7 @@ namespace WebAPIWindowsForm
             this.txtLastName.Location = new System.Drawing.Point(121, 86);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(245, 27);
-            this.txtLastName.TabIndex = 1;
+            this.txtLastName.TabIndex = 3;
             // 
             // label4
             // 
@@ -140,7 +143,7 @@ namespace WebAPIWindowsForm
             this.txtPassword.Location = new System.Drawing.Point(121, 119);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(245, 27);
-            this.txtPassword.TabIndex = 1;
+            this.txtPassword.TabIndex = 4;
             // 
             // label5
             // 
@@ -156,7 +159,7 @@ namespace WebAPIWindowsForm
             this.txtEmail.Location = new System.Drawing.Point(498, 86);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(250, 27);
-            this.txtEmail.TabIndex = 1;
+            this.txtEmail.TabIndex = 7;
             // 
             // label6
             // 
@@ -172,7 +175,7 @@ namespace WebAPIWindowsForm
             this.txtAdres.Location = new System.Drawing.Point(498, 119);
             this.txtAdres.Name = "txtAdres";
             this.txtAdres.Size = new System.Drawing.Size(250, 27);
-            this.txtAdres.TabIndex = 1;
+            this.txtAdres.TabIndex = 8;
             // 
             // label7
             // 
@@ -192,7 +195,7 @@ namespace WebAPIWindowsForm
             this.cmbGender.Location = new System.Drawing.Point(498, 52);
             this.cmbGender.Name = "cmbGender";
             this.cmbGender.Size = new System.Drawing.Size(250, 28);
-            this.cmbGender.TabIndex = 7;
+            this.cmbGender.TabIndex = 6;
             // 
             // label8
             // 
@@ -203,36 +206,38 @@ namespace WebAPIWindowsForm
             this.label8.TabIndex = 8;
             this.label8.Text = "Cinsiyet :";
             // 
-            // btnDuzenle
+            // btnUpdate
             // 
-            this.btnDuzenle.Location = new System.Drawing.Point(554, 164);
-            this.btnDuzenle.Name = "btnDuzenle";
-            this.btnDuzenle.Size = new System.Drawing.Size(94, 29);
-            this.btnDuzenle.TabIndex = 9;
-            this.btnDuzenle.Text = "Düzenle";
-            this.btnDuzenle.UseVisualStyleBackColor = true;
+            this.btnUpdate.Location = new System.Drawing.Point(803, 52);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(94, 29);
+            this.btnUpdate.TabIndex = 10;
+            this.btnUpdate.Text = "Düzenle";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
-            // btnSil
+            // btnDelete
             // 
-            this.btnSil.Location = new System.Drawing.Point(654, 164);
-            this.btnSil.Name = "btnSil";
-            this.btnSil.Size = new System.Drawing.Size(94, 29);
-            this.btnSil.TabIndex = 10;
-            this.btnSil.Text = "Sil";
-            this.btnSil.UseVisualStyleBackColor = true;
+            this.btnDelete.Location = new System.Drawing.Point(803, 85);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(94, 29);
+            this.btnDelete.TabIndex = 11;
+            this.btnDelete.Text = "Sil";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(758, 514);
-            this.Controls.Add(this.btnSil);
-            this.Controls.Add(this.btnDuzenle);
+            this.ClientSize = new System.Drawing.Size(1139, 514);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.cmbGender);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.dateDateOfBirth);
-            this.Controls.Add(this.btnEkle);
+            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.txtAdres);
             this.Controls.Add(this.label6);
@@ -242,7 +247,7 @@ namespace WebAPIWindowsForm
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtLastName);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtFirtsName);
+            this.Controls.Add(this.txtFirstName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtUserName);
             this.Controls.Add(this.label1);
@@ -260,10 +265,10 @@ namespace WebAPIWindowsForm
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtUserName;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button btnEkle;
+        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.DateTimePicker dateDateOfBirth;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtFirtsName;
+        private System.Windows.Forms.TextBox txtFirstName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtLastName;
         private System.Windows.Forms.Label label4;
@@ -275,8 +280,8 @@ namespace WebAPIWindowsForm
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cmbGender;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button btnDuzenle;
-        private System.Windows.Forms.Button btnSil;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
 
