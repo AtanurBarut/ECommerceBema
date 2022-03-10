@@ -71,7 +71,8 @@ namespace Business.Concrete
                     FirstName = user.FirstName,
                     Gender = user.Gender,
                     LastName = user.LastName,
-                    UserName = user.UserName
+                    UserName = user.UserName,
+                    Password = user.Password
                 };
                 return userDto;
             }
