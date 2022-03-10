@@ -25,6 +25,36 @@ namespace WebAPICoreMvc.Controllers
             return View(users);
         }
 
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            ViewBag.GenderList = GenderFill();
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(UserAddViewModel userAddViewModel)
+        {
+            UserAddDto userAddDto = new UserAddDto()
+            {
+                FirstName = userAddViewModel.FirstName,
+                Gender = userAddViewModel.GenderID == 1 ? true : false,
+                LastName = userAddViewModel.LastName,
+                Adress = userAddViewModel.Adress,
+                DateOfBirth = userAddViewModel.DateOfBirth,
+                Email = userAddViewModel.Email,
+                Password = userAddViewModel.Password,
+                UserName = userAddViewModel.UserName,
+            };
+            HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Users/Add", userAddDto);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
@@ -68,28 +98,29 @@ namespace WebAPICoreMvc.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Delete(int id)
         {
+            var user = await _httpClient.GetFromJsonAsync<UserDto>(url + "Users/GetById/" + id);
+            UserDeleteViewModel userDeleteViewModel = new UserDeleteViewModel()
+            {
+                FirstName = user.FirstName,
+                GenderName = user.Gender == true ? "Erkek" : "Kadın",
+                LastName = user.LastName,
+                Adress = user.Adress,
+                DateOfBirth = user.DateOfBirth,
+                Email = user.Email,
+                Password = user.Password,
+                UserName = user.UserName,
+            };
             ViewBag.GenderList = GenderFill();
-            return View();
+            return View(userDeleteViewModel);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Add(UserAddViewModel userAddViewModel)
+        [HttpPost,ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            UserAddDto userAddDto = new UserAddDto()
-            {
-                FirstName = userAddViewModel.FirstName,
-                Gender = userAddViewModel.GenderID == 1 ? true : false,
-                LastName = userAddViewModel.LastName,
-                Adress = userAddViewModel.Adress,
-                DateOfBirth = userAddViewModel.DateOfBirth,
-                Email = userAddViewModel.Email,
-                Password = userAddViewModel.Password,
-                UserName = userAddViewModel.UserName,
-            };
-            HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Users/Add", userAddDto);
-            if (responseMessage.IsSuccessStatusCode)
+            var isDelete = await _httpClient.DeleteAsync(url + "Users/Delete/" + id);
+            if (isDelete.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
