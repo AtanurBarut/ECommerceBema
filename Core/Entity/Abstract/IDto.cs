@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Enums
+namespace Core.Enttity.Abstract
 {
-    public enum Genders
+   public interface IDto
     {
-        Famele = 0,
-        Male = 1
     }
 }

@@ -2,9 +2,13 @@
 using DataAcccess.Abstract;
 using Entities.Concrete;
 using Entities.Dtos.UserDtos;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +17,6 @@ namespace Business.Concrete
     public class UserService : IUserService
     {
         private readonly IuserDal _userDal;
-
         public UserService(IuserDal userDal)
         {
             _userDal = userDal;

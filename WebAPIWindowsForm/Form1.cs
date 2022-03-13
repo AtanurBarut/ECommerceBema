@@ -1,5 +1,4 @@
 ﻿using Entities.Dtos.UserDtos;
-using Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -173,6 +172,11 @@ namespace WebAPIWindowsForm
                     MessageBox.Show("Silme İşlemi Başarısız..");
                 }
             }
+        }
+
+        private async void btnRefresh_Click(object sender, EventArgs e)
+        {
+            await DataGridViewFill();
         }
     }
 }

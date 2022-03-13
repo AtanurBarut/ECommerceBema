@@ -3,20 +3,17 @@ using Business.Concrete;
 using DataAcccess.Abstract;
 using DataAcccess.Concrete.Contexts;
 using DataAcccess.Concrete.EntityFremawork;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace WebAPI
 {
@@ -37,13 +34,13 @@ namespace WebAPI
             (HistoryRepository.DefaultTableName, "dbo")));
 
             services.AddControllers();
-            services.AddTransient<IuserDal,EfUserDal>();
-            services.AddTransient<IUserService,UserService>();
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
             });
+
+            services.AddTransient<IuserDal, EfUserDal>();
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,9 +54,7 @@ namespace WebAPI
             }
 
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Concrete
 {
-    public class User:AuditableEntity
+    public class User : AuditableEntity
     {
         public string UserName { get; set; }
         public string FirstName { get; set; }
