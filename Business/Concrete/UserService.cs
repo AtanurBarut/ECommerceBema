@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.Constans;
+using Core.Utilities.Responses;
+using Core.Utilities.Security.Token;
 using DataAcccess.Abstract;
 using Entities.Concrete;
 using Entities.Dtos.UserDtos;
@@ -17,12 +20,15 @@ namespace Business.Concrete
     public class UserService : IUserService
     {
         private readonly IuserDal _userDal;
-        public UserService(IuserDal userDal)
+        private readonly AppSettings _appSettings;
+
+        public UserService(IuserDal userDal, IOptions<AppSettings> appSettings)
         {
             _userDal = userDal;
+            _appSettings = appSettings.Value;
         }
 
-        public async Task<UserDto> AddAsync(UserAddDto userAddDto)
+        public async Task<ApiDataResponse<UserDto>> AddAsync(UserAddDto userAddDto)
         {
             User user = new User()
             {
@@ -53,15 +59,16 @@ namespace Business.Concrete
                 UserName = userAdd.UserName,
                 Id = userAdd.Id,
             };
-            return userDto;
+            return new SuccessApiDataResponse<UserDto>(userDto, Messages.Added);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<ApiDataResponse<bool>> DeleteAsync(int id)
         {
-            return await _userDal.DeleteAsync(id);
+            var isDelete = await _userDal.DeleteAsync(id);
+            return new SuccessApiDataResponse<bool>(isDelete, Messages.Deleted);
         }
 
-        public async Task<UserDto> GetByIdAsync(int id)
+        public async Task<ApiDataResponse<UserDto>> GetByIdAsync(int id)
         {
             var user = await _userDal.GetAsync(x => x.Id == id);
             if (user != null)
@@ -77,12 +84,12 @@ namespace Business.Concrete
                     UserName = user.UserName,
                     Password = user.Password
                 };
-                return userDto;
+                return new SuccessApiDataResponse<UserDto>(userDto, Messages.Listed);
             }
-            return null;
+            return new ErrorApiDataResponse<UserDto>(null, Messages.NotListed);
         }
 
-        public async Task<IEnumerable<UserDetailDto>> GetListAsync()
+        public async Task<ApiDataResponse<IEnumerable<UserDetailDto>>> GetListAsync()
         {
             List<UserDetailDto> userDetailDtos = new List<UserDetailDto>();
             var response = await _userDal.GetListAsync();
@@ -100,10 +107,10 @@ namespace Business.Concrete
                     Id = item.Id,
                 });
             }
-            return userDetailDtos;
+            return new SuccessApiDataResponse<IEnumerable<UserDetailDto>>(userDetailDtos, Messages.Listed);
         }
 
-        public async Task<UserUpdateDto> UpdateAsync(UserUpdateDto userUpdateDto)
+        public async Task<ApiDataResponse<UserUpdateDto>> UpdateAsync(UserUpdateDto userUpdateDto)
         {
             var getUser = await _userDal.GetAsync(x => x.Id == userUpdateDto.Id);
             User user = new User()
@@ -135,7 +142,35 @@ namespace Business.Concrete
                 Id = userUpdate.Id,
                 Password = userUpdate.Password,
             };
-            return newuserUpdateDto;
+            return new SuccessApiDataResponse<UserUpdateDto>(newuserUpdateDto, Messages.Updated);
         }
+
+        //public async Task<ApiDataResponse<AccessToken>> Authenticate(UserForLoginDto userForLoginDto)
+        //{
+        //    var user = await _userDal.GetAsync(x => x.UserName == userForLoginDto.UserName && x.Password == userForLoginDto.Password);
+        //    if (user == null)
+        //        return null;
+
+        //    var tokenHandler = new JwtSecurityTokenHandler();
+        //    var key = Encoding.ASCII.GetBytes(_appSettings.SecurityKey);
+        //    var tokenDescriptor = new SecurityTokenDescriptor()
+        //    {
+        //        Subject = new ClaimsIdentity(new[]
+        //        {
+        //            new Claim(ClaimTypes.Name,user.Id.ToString())
+        //        }),
+        //        Expires = DateTime.UtcNow.AddDays(7),
+        //        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        //    };
+        //    var token = tokenHandler.CreateToken(tokenDescriptor);
+        //    AccessToken accessToken = new AccessToken()
+        //    {
+        //        Token = tokenHandler.WriteToken(token),
+        //        Expiration = (DateTime)tokenDescriptor.Expires,
+        //        UserName = user.UserName,
+        //        UserID = user.Id
+        //    };
+        //    return await Task.Run(() => accessToken);
+        //}
     }
 }

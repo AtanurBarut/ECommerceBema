@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Helpers\" />
+    <Folder Include="Helpers\JWT\" />
   </ItemGroup>
 
 </Project>
