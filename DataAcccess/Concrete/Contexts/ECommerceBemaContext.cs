@@ -25,6 +25,8 @@ namespace DataAcccess.Concrete.Contexts
             //string connString = "Data Source=.\\SQLEXPRESS; Initial Catalog = ECommerceBemaDB; Intagrated Security = true";
             string connString = "Data Source=.; Initial Catalog = ECommerceBemaDB; User Id=sa; Password=sapass";
             optionsBuilder.UseSqlServer(connString);
+
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

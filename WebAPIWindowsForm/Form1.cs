@@ -1,4 +1,4 @@
-﻿using Entities.Dtos.UserDtos;
+﻿using Entities.Dtos.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

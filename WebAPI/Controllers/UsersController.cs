@@ -1,5 +1,5 @@
 ﻿using Business.Abstract;
-using Entities.Dtos.UserDtos;
+using Entities.Dtos.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -67,21 +67,21 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _userService.DeleteAsync(id);
-            if (result)
+            if (result.Data)
                 return Ok(true);
             return BadRequest(false);
         }
 
-        [AllowAnonymous]
-        [HttpPost]
-        [Route("[action]")]
-        public async Task<IActionResult> Authenticate([FromBody] UserForLoginDto userForLoginDto)
-        {
-            var result = await _userService.Authenticate(userForLoginDto);
-            if (result != null)
-                return Ok(result);
-            return BadRequest();
-        }
+        //[AllowAnonymous]
+        //[HttpPost]
+        //[Route("[action]")]
+        //public async Task<IActionResult> Authenticate([FromBody] LoginDto userForLoginDto)
+        //{
+        //    var result = await _userService.Authenticate(userForLoginDto);
+        //    if (result != null)
+        //        return Ok(result);
+        //    return BadRequest();
+        //}
 
     }
 }

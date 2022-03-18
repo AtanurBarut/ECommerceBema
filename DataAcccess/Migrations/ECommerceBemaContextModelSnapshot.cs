@@ -32,7 +32,7 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 1, 31, 13, 43, 55, 616, DateTimeKind.Local).AddTicks(2543));
+                        .HasDefaultValue(new DateTime(2022, 3, 15, 12, 26, 23, 252, DateTimeKind.Local).AddTicks(1011));
 
                     b.Property<int>("CreatedUserId")
                         .HasColumnType("int");
@@ -62,9 +62,18 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("Password");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("TokenExpireDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
@@ -87,7 +96,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             Adress = "YOZGAT",
-                            CreatedDate = new DateTime(2022, 1, 31, 13, 43, 55, 634, DateTimeKind.Local).AddTicks(6303),
+                            CreatedDate = new DateTime(2022, 3, 15, 12, 26, 23, 260, DateTimeKind.Local).AddTicks(9029),
                             CreatedUserId = 1,
                             DateOfBirth = new DateTime(1976, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "atanurbarut@gmail.com",
