@@ -1,4 +1,3 @@
-using System.Text;
 using AutoMapper;
 using Business.Abstract;
 using Business.Concrete;
@@ -9,7 +8,6 @@ using Core.Utilities.Security.Token.Jwt;
 using DataAcccess.Abstract;
 using DataAcccess.Concrete.Contexts;
 using DataAcccess.Concrete.EntityFremawork;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -17,8 +15,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 
 
 namespace WebAPI
@@ -41,8 +37,7 @@ namespace WebAPI
 
             services.AddControllers();
             services.AddCustomSwagger();
-            services.AddCustomJwtToken(Configuration);
-
+            services.AddCustomJwtToken(Configuration);       
 
             #region AutoMapper
             var mapperConfig = new MapperConfiguration(mc =>
@@ -53,12 +48,12 @@ namespace WebAPI
             services.AddSingleton(mapper);
             #endregion
 
-            #region DI
-            services.AddTransient<IuserDal, EfUserDal>();
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<ITokenService, JwtTokenService>();
-            services.AddTransient<IAuthService, AuthService>();
-            #endregion
+            //#region DI
+            //services.AddTransient<IUserDal, EfUserDal>();
+            //services.AddTransient<IUserService, UserService>();
+            //services.AddTransient<ITokenService, JwtTokenService>();
+            //services.AddTransient<IAuthService, AuthService>();
+            //#endregion
 
         }
 

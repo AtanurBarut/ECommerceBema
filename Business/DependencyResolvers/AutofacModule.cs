@@ -1,0 +1,32 @@
+﻿using Autofac;
+using Autofac.Extras.DynamicProxy;
+using Business.Abstract;
+using Business.Concrete;
+using Castle.DynamicProxy;
+using Core.Utilities.Intercepters;
+using Core.Utilities.Security.Token;
+using Core.Utilities.Security.Token.Jwt;
+using DataAcccess.Abstract;
+using DataAcccess.Concrete.EntityFremawork;
+
+
+namespace Business.DependencyResolvers
+{
+    public class AutofacModule : Module
+    {
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterType<EfUserDal>().As<IUserDal>();
+            builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterType<JwtTokenService>().As<ITokenService>();
+            builder.RegisterType<AuthService>().As<IAuthService>();
+
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
+                .EnableInterfaceInterceptors(new ProxyGenerationOptions()
+                {
+                    Selector = new AspectInterseptorSelector()
+                }).SingleInstance();
+        }
+    }
+}

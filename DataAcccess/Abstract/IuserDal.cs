@@ -3,7 +3,7 @@ using Entities.Concrete;
 
 namespace DataAcccess.Abstract
 {
-    public interface IuserDal:IBaseRepository<User>
+    public interface IUserDal:IBaseRepository<User>
     {
     }
 }

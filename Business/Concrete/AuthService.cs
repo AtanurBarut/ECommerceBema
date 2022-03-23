@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Business.Abstract;
 using Business.Constans;
+using Business.Validations.FluentValidation;
+using Core.Aspects;
 using Core.Utilities.Responses;
 using Core.Utilities.Security.Token;
 using Entities.Dtos.Auth;
@@ -12,9 +14,9 @@ namespace Business.Concrete
 {
     public class AuthService : IAuthService
     {
-        private readonly IUserService _userService;
-        private readonly ITokenService _tokenService;
-        private readonly IMapper _mapper;
+        private IUserService _userService;
+        private ITokenService _tokenService;
+        private IMapper _mapper;
 
         public AuthService(IUserService userService, ITokenService tokenService, IMapper mapper)
         {
@@ -23,10 +25,11 @@ namespace Business.Concrete
             _mapper = mapper;
         }
 
+        [ValidationAspect(typeof(LoginDtoValidator))]
         public async Task<ApiDataResponse<UserDto>> LoginAsync(LoginDto loginDto)
         {
             var user = await _userService.GetAsync(x => x.UserName == loginDto.UserName && x.Password == loginDto.Password);
-            if (user == null)
+            if (user.Data == null)
             {
                 return new ErrorApiDataResponse<UserDto>(null, Messages.UserNotFound);
             }

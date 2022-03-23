@@ -5,7 +5,7 @@ using Entities.Concrete;
 
 namespace DataAcccess.Concrete.EntityFremawork
 {
-    public class EfUserDal:EfBaseRepository<User,ECommerceBemaContext>,IuserDal
+    public class EfUserDal:EfBaseRepository<User,ECommerceBemaContext>,IUserDal
     {
     }
 }

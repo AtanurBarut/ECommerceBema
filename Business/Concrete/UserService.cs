@@ -17,11 +17,11 @@ namespace Business.Concrete
     public class UserService : IUserService
     {
         #region DI
-        private readonly IuserDal _userDal;
+        private readonly IUserDal _userDal;
         private readonly AppSettings _appSettings;
         private IMapper _mapper;
 
-        public UserService(IuserDal userDal, IOptions<AppSettings> appSettings, IMapper mapper)
+        public UserService(IUserDal userDal, IOptions<AppSettings> appSettings, IMapper mapper)
         {
             _userDal = userDal;
             _mapper = mapper;
